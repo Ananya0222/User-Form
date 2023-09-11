@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %} 
+{% block body %}
+
+    <div class="container my-3">
+        <h2>Add Details</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+              <label for="title" class="form-label">Customer Name</label>
+              <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp"> 
+            </div>
+            <div class="mb-3">
+              <label for="desc" class="form-label">Enter the product</label>
+              <input type="text" class="form-control" name="desc" id="desc">
+            </div>
+            <div class="mb-3">
+              <label for="floatingInput" class="form-label">Enter the Price</label>
+              <input type="number" class="floatingInput" name="floatingInput" id="floatingInput" step="any">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+    </div>
+    <div class="container my-3">
+        <h2>UserForm Details</h2>
+        
+                {% if all_user|length == 0 %}
+                   
+                <div class="alert alert-dark" role="alert">
+                    No Details found. Add your first Details now!
+                  </div>
+                    {% else %} 
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">SLNo</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+              {% for user_info in all_user %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{user_info.title}}</td>
+                <td>{{user_info.desc}}</td>
+                <td>{{user_info.floatingInput}}</td>
+                <td>{{user_info.date_created}}</td>
+                
+                <td>
+                  <a href="/update/{{user_info.slno}}" type="button" class="btn btn-outline-info btn-sm mx-1">Update</button>
+                  <a href="/delete/{{user_info.slno}}" type="button" class="btn btn-outline-danger btn-sm mx-1">Delete</button>
+                
+                </td>
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+            </table>
+              {% endif %}
+               
+           
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+  
+
+{% endblock body %}
